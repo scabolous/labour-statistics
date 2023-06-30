@@ -34,17 +34,17 @@ plt.show()
 plt.plot(femaleshareoflowpayearners_pd['ano'], femaleshareoflowpayearners_pd['salario_medio'])
 plt.xlabel('Ano')
 plt.ylabel('Female share of low pay earners')
-plt.title('SFemale share of low pay earners ao longo dos anos')
+plt.title('Female share of low pay earners ao longo dos anos')
 plt.show()
 
-# Converter os DataFrames Spark em DataFrames Pandas para análise correlacional
+# DataFrames Spark em DataFrames Pandas 
 genderwagegap_pd = genderwagegap_df.join(femaleshareoflowpayearners_df, on='ano').toPandas()
 correlation_matrix = genderwagegap_pd[['gender wage gap', 'salario_medio']].corr()
 print(correlation_matrix)
 
 import statsmodels.api as sm
 
-# Realizar a análise regressiva entre empregabilidade e salário médio
+# Regressão
 X = genderwagegap_pd['gender wage gap']
 Y = femaleshareoflowpayearners_pd['salario_medio']
 X = sm.add_constant(X)
@@ -52,8 +52,8 @@ model = sm.OLS(Y, X)
 results = model.fit()
 print(results.summary())
 
-# Realizar uma predição do salário médio com base na empregabilidade
-genderwagegap_pred = 0.8  # Valor fictício para predição
+# Predição
+genderwagegap_pred = 0.8  # Valor fictício
 genderwagegap_pred = sm.add_constant(genderwagegap_pred)
 femaleshare_pred = results.predict(genderwagegap_pred)
 print('Salário médio previsto:', femaleshare_pred)
