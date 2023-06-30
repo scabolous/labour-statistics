@@ -30,6 +30,7 @@ plt.ylabel('gender wage gap')
 plt.title('gender wage gap ao longo dos anos')
 plt.show()
 
+
 # Gráfico female share
 plt.plot(femaleshareoflowpayearners_pd['ano'], femaleshareoflowpayearners_pd['salario_medio'])
 plt.xlabel('Ano')
@@ -57,3 +58,5 @@ genderwagegap_pred = 0.8  # Valor fictício
 genderwagegap_pred = sm.add_constant(genderwagegap_pred)
 femaleshare_pred = results.predict(genderwagegap_pred)
 print('Salário médio previsto:', femaleshare_pred)
+
+
